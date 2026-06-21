@@ -51,7 +51,7 @@ export const RoutePlanner: React.FC = () => {
     <div className="glass-card animate-fade-in" style={{ padding: '2rem' }}>
       <div style={{ marginBottom: '1.5rem' }}>
         <h2 style={{ fontSize: '1.8rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-          <Compass color="var(--primary)" /> Travel Route Planner & Comparison
+          <Compass color="var(--primary)" aria-hidden="true" /> Travel Route Planner & Comparison
         </h2>
         <p style={{ marginTop: '0.4rem' }}>
           Plan an upcoming trip or analyze your daily commute to compare different modes of travel side-by-side.
@@ -66,9 +66,10 @@ export const RoutePlanner: React.FC = () => {
           </h3>
 
           <div className="form-group">
-            <label className="form-label">Trip Distance (One-Way km)</label>
+            <label htmlFor="input-trip-distance" className="form-label">Trip Distance (One-Way km)</label>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <input 
+                id="input-trip-distance"
                 type="number" 
                 className="form-input" 
                 value={distance || ''} 
@@ -86,13 +87,15 @@ export const RoutePlanner: React.FC = () => {
                 step="5"
                 value={distance} 
                 onChange={(e) => setDistance(Number(e.target.value))}
+                aria-label="Trip distance slider in kilometers"
               />
             </div>
           </div>
 
           <div className="form-group">
-            <label className="form-label">Frequency</label>
+            <label htmlFor="input-trip-frequency" className="form-label">Frequency</label>
             <select 
+              id="input-trip-frequency"
               className="form-select" 
               value={frequency} 
               onChange={(e) => setFrequency(e.target.value)}
@@ -105,7 +108,7 @@ export const RoutePlanner: React.FC = () => {
           </div>
 
           <div style={suggestionBoxStyle}>
-            <AlertCircle size={16} color="var(--primary)" style={{ flexShrink: 0, marginTop: '0.1rem' }} />
+            <AlertCircle size={16} color="var(--primary)" style={{ flexShrink: 0, marginTop: '0.1rem' }} aria-hidden="true" />
             <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
               <strong>Did you know?</strong> Rail travel emits up to 85% less CO₂ than short-haul domestic flights. For trips under 500 km, train routes are cleaner and often faster terminal-to-terminal.
             </div>

@@ -44,22 +44,22 @@ export const Layout: React.FC<LayoutProps> = ({
       <header style={headerStyle}>
         <div style={headerContainerStyle}>
           <div style={logoAreaStyle}>
-            <CloudLightning size={28} color="#10b981" style={logoIconStyle} />
+            <CloudLightning size={28} color="#10b981" style={logoIconStyle} aria-hidden="true" />
             <h1 style={logoTextStyle}>EcoSphere</h1>
-            <span className="badge badge-success" style={{ fontSize: '0.7rem', padding: '0.15rem 0.4rem', gap: '0.2rem' }}>
-              <Sparkles size={10} /> PRO
+            <span className="badge badge-success" style={{ fontSize: '0.7rem', padding: '0.15rem 0.4rem', gap: '0.2rem' }} aria-label="Pro Version">
+              <Sparkles size={10} aria-hidden="true" /> PRO
             </span>
           </div>
 
           {/* Quick Net Score view in Header */}
-          <div style={headerStatsStyle}>
+          <div style={headerStatsStyle} aria-live="polite" aria-label="Current net monthly carbon footprint">
             <div style={{ textAlign: 'right' }}>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Net Monthly CO₂</div>
               <div style={{ fontWeight: '700', fontSize: '1.1rem', color: isBelowTarget ? 'var(--primary)' : 'var(--warning)' }}>
                 {netFootprint.toLocaleString()} kg
               </div>
             </div>
-            <div style={statsIndicatorStyle(isBelowTarget)}>
+            <div style={statsIndicatorStyle(isBelowTarget)} role="status">
               {isBelowTarget ? 'Eco Safe' : 'Warning'}
             </div>
           </div>
@@ -69,7 +69,11 @@ export const Layout: React.FC<LayoutProps> = ({
       <div style={contentWrapperStyle}>
         {/* Navigation Sidebar */}
         <aside style={sidebarStyle} className="no-print">
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: '100%' }}>
+          <nav 
+            style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: '100%' }}
+            role="tablist"
+            aria-label="Application sections"
+          >
             {menuItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -79,8 +83,12 @@ export const Layout: React.FC<LayoutProps> = ({
                   onClick={() => setActiveTab(item.id)}
                   style={navButtonStyle(isActive)}
                   className={`nav-item-btn ${isActive ? 'active' : ''}`}
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls="main-content"
+                  id={`nav-tab-${item.id}`}
                 >
-                  <Icon size={18} color={isActive ? '#10b981' : '#94a3b8'} />
+                  <Icon size={18} color={isActive ? '#10b981' : '#94a3b8'} aria-hidden="true" />
                   <span>{item.label}</span>
                 </button>
               );
@@ -89,7 +97,12 @@ export const Layout: React.FC<LayoutProps> = ({
         </aside>
 
         {/* Main Content Area */}
-        <main style={mainContentStyle}>
+        <main 
+          style={mainContentStyle}
+          id="main-content"
+          role="tabpanel"
+          aria-labelledby={`nav-tab-${activeTab}`}
+        >
           <div className="animate-slide-up">
             {children}
           </div>

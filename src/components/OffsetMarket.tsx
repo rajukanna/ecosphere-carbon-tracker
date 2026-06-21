@@ -46,7 +46,7 @@ export const OffsetMarket: React.FC<OffsetMarketProps> = ({
       <div style={marketHeaderStyle}>
         <div>
           <h2 style={{ fontSize: '1.8rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <Leaf color="var(--primary)" /> Carbon Offset Marketplace
+            <Leaf color="var(--primary)" aria-hidden="true" /> Carbon Offset Marketplace
           </h2>
           <p style={{ marginTop: '0.4rem' }}>
             Support verified climate action projects to balance your footprint and achieve carbon neutrality.
@@ -54,17 +54,22 @@ export const OffsetMarket: React.FC<OffsetMarketProps> = ({
         </div>
         
         {offsetAmount > 0 && (
-          <button onClick={handleResetOffsets} className="btn btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-            <RefreshCw size={14} /> Clear Supported Projects
+          <button 
+            onClick={handleResetOffsets} 
+            className="btn btn-secondary" 
+            style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}
+            aria-label="Clear all Supported Projects contributions"
+          >
+            <RefreshCw size={14} aria-hidden="true" /> Clear Supported Projects
           </button>
         )}
       </div>
 
       {/* Net Neutral Banner */}
-      <div style={neutralBannerStyle(isNeutral)}>
+      <div style={neutralBannerStyle(isNeutral)} role="region" aria-live="polite" aria-label="Carbon Neutrality Progress">
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div style={neutralIconStyle(isNeutral)}>
-            {isNeutral ? <Award size={24} /> : <Leaf size={24} />}
+            {isNeutral ? <Award size={24} aria-hidden="true" /> : <Leaf size={24} aria-hidden="true" />}
           </div>
           <div>
             <h3 style={{ color: 'white', fontSize: '1.15rem' }}>
@@ -86,8 +91,8 @@ export const OffsetMarket: React.FC<OffsetMarketProps> = ({
       </div>
 
       {showSuccess && (
-        <div className="glass-panel animate-fade-in" style={successBannerStyle}>
-          <Check size={18} color="var(--primary)" /> Simulated offset contribution of <strong>100 kg CO₂</strong> registered to <strong>{showSuccess}</strong>!
+        <div className="glass-panel animate-fade-in" style={successBannerStyle} role="status" aria-live="polite">
+          <Check size={18} color="var(--primary)" aria-hidden="true" /> Simulated offset contribution of <strong>100 kg CO₂</strong> registered to <strong>{showSuccess}</strong>!
         </div>
       )}
 
@@ -103,7 +108,7 @@ export const OffsetMarket: React.FC<OffsetMarketProps> = ({
             <div key={project.id} className="glass-card" style={projectCardStyle}>
               {/* Image banner replacement with clean CSS gradient blocks */}
               <div style={projectImageWrapperStyle(project.image)}>
-                <div style={{ position: 'absolute', top: '10px', right: '10px' }} className="badge badge-info">
+                <div style={{ position: 'absolute', top: '10px', right: '10px' }} className="badge badge-info" aria-label={`Price: ${project.pricePerTon} dollars per metric ton`}>
                   ${project.pricePerTon} / Metric Ton
                 </div>
                 <div style={projectTitleBlockStyle}>
@@ -120,7 +125,7 @@ export const OffsetMarket: React.FC<OffsetMarketProps> = ({
                 <div style={developerStyle}>
                   <span>Developed by: {project.developer}</span>
                   {supportedForThis > 0 && (
-                    <span className="badge badge-success">Supporting {supportedForThis} kg CO₂</span>
+                    <span className="badge badge-success" aria-label={`Supporting ${supportedForThis} kilograms of CO2 offsets`}>Supporting {supportedForThis} kg CO₂</span>
                   )}
                 </div>
 
@@ -128,7 +133,7 @@ export const OffsetMarket: React.FC<OffsetMarketProps> = ({
                   <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>SUPPORT EMISSIONS (100 kg CO₂)</span>
                     <span style={{ fontWeight: '700', fontSize: '1.1rem', color: 'white', display: 'flex', alignItems: 'center' }}>
-                      <DollarSign size={16} color="var(--primary)" /> {costToOffset100Kg.toFixed(2)} USD
+                      <DollarSign size={16} color="var(--primary)" aria-hidden="true" /> {costToOffset100Kg.toFixed(2)} USD
                     </span>
                   </div>
 
@@ -137,8 +142,9 @@ export const OffsetMarket: React.FC<OffsetMarketProps> = ({
                     className="btn btn-primary"
                     disabled={isNeutral}
                     style={{ fontSize: '0.85rem', padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}
+                    aria-label={`Offset 100 kilograms of CO2 supporting ${project.title} for ${costToOffset100Kg.toFixed(2)} USD`}
                   >
-                    <Plus size={14} /> Offset 100 kg
+                    <Plus size={14} aria-hidden="true" /> Offset 100 kg
                   </button>
                 </div>
 
@@ -154,6 +160,7 @@ export const OffsetMarket: React.FC<OffsetMarketProps> = ({
                         }));
                       }}
                       style={neutralizeAllButtonStyle}
+                      aria-label={`Buy net zero status using ${project.title} for ${costToNeutralizeEntirely.toFixed(2)} USD`}
                     >
                       Buy Net Zero (${costToNeutralizeEntirely.toFixed(2)})
                     </button>

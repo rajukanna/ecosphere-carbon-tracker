@@ -26,7 +26,7 @@ export const AIAdvisor: React.FC = () => {
   const getAIResponse = (input: string): string => {
     const text = input.toLowerCase();
 
-    if (text.includes('car') || text.includes('drive') || text.includes('vehicle') || text.includes('ev') || text.includes('gas') || text.includes('mileage')) {
+    if ((text.includes('car') && !text.includes('carbon')) || text.includes('drive') || text.includes('vehicle') || text.includes('ev') || text.includes('gas') || text.includes('mileage')) {
       return '🚙 **Transportation Tips:**\n1. **Electrify:** Switching to an electric vehicle (EV) reduces driving emissions by up to 80% (depending on clean power grids).\n2. **Public Transit:** Taking a bus or train emits ~80% less CO₂ per km than solo driving a gasoline car.\n3. **Active Transit:** Walk or bike for trips under 3 km. These account for 60% of emissions on short vehicle runs due to cold engines.\n4. **Eco-Driving:** Avoid rapid acceleration and braking to boost gas mileage by 15-30% on highways.';
     }
 
@@ -151,14 +151,15 @@ export const AIAdvisor: React.FC = () => {
         {/* Preset Prompt Buttons */}
         <div style={presetAreaStyle} className="no-print">
           <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-            <HelpCircle size={12} /> SUGGESTED TOPICS:
+            <HelpCircle size={12} aria-hidden="true" /> SUGGESTED TOPICS:
           </div>
-          <div style={presetButtonsGridStyle}>
+          <div style={presetButtonsGridStyle} role="group" aria-label="Suggested chat topics">
             {presetQueries.map((p, idx) => (
               <button 
                 key={idx} 
                 onClick={() => handleSendMessage(p.query)}
                 style={presetButtonStyle}
+                className="preset-button-item"
               >
                 {p.label}
               </button>
@@ -176,13 +177,15 @@ export const AIAdvisor: React.FC = () => {
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
             style={{ borderRadius: '8px 0 0 8px', flex: 1 }}
+            aria-label="Ask our virtual carbon consultant"
           />
           <button 
             onClick={() => handleSendMessage()}
             className="btn btn-primary"
             style={{ borderRadius: '0 8px 8px 0', padding: '0 1.25rem' }}
+            aria-label="Send message"
           >
-            <Send size={16} />
+            <Send size={16} aria-hidden="true" />
           </button>
         </div>
       </div>

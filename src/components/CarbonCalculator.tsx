@@ -63,7 +63,7 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
     <div className="glass-card animate-fade-in" style={{ padding: '2rem' }}>
       <div style={{ marginBottom: '1.5rem' }}>
         <h2 style={{ fontSize: '1.8rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-          <TrendingDown color="var(--primary)" /> Activity Footprint Tracker
+          <TrendingDown color="var(--primary)" aria-hidden="true" /> Activity Footprint Tracker
         </h2>
         <p style={{ marginTop: '0.4rem' }}>
           Input your lifestyle habits below. Calculations update dynamically to show your footprints.
@@ -71,46 +71,68 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
       </div>
 
       {/* Tabs */}
-      <div className="tabs-header">
+      <div className="tabs-header" role="tablist" aria-label="Activity footprint categories">
         <button
+          id="tab-btn-transport"
+          role="tab"
+          aria-selected={activeTab === 'transport'}
+          aria-controls="panel-transport"
           onClick={() => setActiveTab('transport')}
           className={`tab-btn ${activeTab === 'transport' ? 'active' : ''}`}
           style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
         >
-          <Car size={16} /> Transportation
+          <Car size={16} aria-hidden="true" /> Transportation
         </button>
         <button
+          id="tab-btn-energy"
+          role="tab"
+          aria-selected={activeTab === 'energy'}
+          aria-controls="panel-energy"
           onClick={() => setActiveTab('energy')}
           className={`tab-btn ${activeTab === 'energy' ? 'active' : ''}`}
           style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
         >
-          <Zap size={16} /> Energy & Utilities
+          <Zap size={16} aria-hidden="true" /> Energy & Utilities
         </button>
         <button
+          id="tab-btn-diet"
+          role="tab"
+          aria-selected={activeTab === 'diet'}
+          aria-controls="panel-diet"
           onClick={() => setActiveTab('diet')}
           className={`tab-btn ${activeTab === 'diet' ? 'active' : ''}`}
           style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
         >
-          <Utensils size={16} /> Diet & Food
+          <Utensils size={16} aria-hidden="true" /> Diet & Food
         </button>
         <button
+          id="tab-btn-waste"
+          role="tab"
+          aria-selected={activeTab === 'waste'}
+          aria-controls="panel-waste"
           onClick={() => setActiveTab('waste')}
           className={`tab-btn ${activeTab === 'waste' ? 'active' : ''}`}
           style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
         >
-          <Trash2 size={16} /> Waste & Consumption
+          <Trash2 size={16} aria-hidden="true" /> Waste & Consumption
         </button>
       </div>
 
       {/* Tab Contents */}
       <div style={{ marginTop: '1rem' }}>
-        {/* TRANSPORT TAB */}
+        {/* TRANSPORT TAB PANEL */}
         {activeTab === 'transport' && (
-          <div className="animate-fade-in grid-2">
+          <div 
+            id="panel-transport"
+            role="tabpanel"
+            aria-labelledby="tab-btn-transport"
+            className="animate-fade-in grid-2"
+          >
             <div>
               <div className="form-group">
-                <label className="form-label">Primary Vehicle Type</label>
+                <label htmlFor="input-car-type" className="form-label">Primary Vehicle Type</label>
                 <select
+                  id="input-car-type"
                   className="form-select"
                   value={data.transport.carType}
                   onChange={(e) => updateTransport('carType', e.target.value)}
@@ -125,8 +147,9 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
 
               {data.transport.carType !== 'none' && (
                 <div className="form-group">
-                  <label className="form-label">Car Mileage (km / month)</label>
+                  <label htmlFor="input-car-distance" className="form-label">Car Mileage (km / month)</label>
                   <input
+                    id="input-car-distance"
                     type="number"
                     className="form-input"
                     value={data.transport.carDistance || ''}
@@ -140,8 +163,9 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
               )}
 
               <div className="form-group">
-                <label className="form-label">Motorbike Mileage (km / month)</label>
+                <label htmlFor="input-motorbike" className="form-label">Motorbike Mileage (km / month)</label>
                 <input
+                  id="input-motorbike"
                   type="number"
                   className="form-input"
                   value={data.transport.motorbike || ''}
@@ -153,8 +177,9 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
 
             <div>
               <div className="form-group">
-                <label className="form-label">Public Transit (km / month)</label>
+                <label htmlFor="input-public-transit" className="form-label">Public Transit (km / month)</label>
                 <input
+                  id="input-public-transit"
                   type="number"
                   className="form-input"
                   value={data.transport.publicTransit || ''}
@@ -167,10 +192,11 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
               </div>
 
               <div className="form-group">
-                <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                  <Plane size={14} /> Annual Flight Hours
+                <label htmlFor="input-flights" className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <Plane size={14} aria-hidden="true" /> Annual Flight Hours
                 </label>
                 <input
+                  id="input-flights"
                   type="number"
                   className="form-input"
                   value={data.transport.flights || ''}
@@ -185,15 +211,21 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
           </div>
         )}
 
-        {/* ENERGY TAB */}
+        {/* ENERGY TAB PANEL */}
         {activeTab === 'energy' && (
-          <div className="animate-fade-in grid-2">
+          <div 
+            id="panel-energy"
+            role="tabpanel"
+            aria-labelledby="tab-btn-energy"
+            className="animate-fade-in grid-2"
+          >
             <div>
               <div className="form-group">
-                <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                  <Zap size={14} color="#f59e0b" /> Electricity Consumption (kWh / month)
+                <label htmlFor="input-electricity" className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <Zap size={14} color="#f59e0b" aria-hidden="true" /> Electricity Consumption (kWh / month)
                 </label>
                 <input
+                  id="input-electricity"
                   type="number"
                   className="form-input"
                   value={data.energy.electricity || ''}
@@ -206,10 +238,11 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
               </div>
 
               <div className="form-group">
-                <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                  <Flame size={14} color="var(--accent)" /> Natural Gas (kWh or equivalent / month)
+                <label htmlFor="input-gas" className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <Flame size={14} color="var(--accent)" aria-hidden="true" /> Natural Gas (kWh or equivalent / month)
                 </label>
                 <input
+                  id="input-gas"
                   type="number"
                   className="form-input"
                   value={data.energy.gas || ''}
@@ -224,7 +257,7 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
 
             <div>
               <div className="form-group glass-panel" style={{ padding: '1.25rem' }}>
-                <label className="form-label" style={{ color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                <label htmlFor="input-clean-energy" className="form-label" style={{ color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                   Clean Energy Tariff Share: {data.energy.cleanEnergyShare}%
                 </label>
                 <p style={{ fontSize: '0.8rem', marginBottom: '1rem', color: 'var(--text-secondary)' }}>
@@ -232,6 +265,7 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
                 </p>
                 <div className="premium-slider-container">
                   <input
+                    id="input-clean-energy"
                     type="range"
                     className="premium-slider"
                     min="0"
@@ -250,13 +284,19 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
           </div>
         )}
 
-        {/* DIET TAB */}
+        {/* DIET TAB PANEL */}
         {activeTab === 'diet' && (
-          <div className="animate-fade-in grid-2">
+          <div 
+            id="panel-diet"
+            role="tabpanel"
+            aria-labelledby="tab-btn-diet"
+            className="animate-fade-in grid-2"
+          >
             <div>
               <div className="form-group">
-                <label className="form-label">Diet Classification</label>
+                <label htmlFor="input-diet-type" className="form-label">Diet Classification</label>
                 <select
+                  id="input-diet-type"
                   className="form-select"
                   value={data.diet.dietType}
                   onChange={(e) => updateDiet('dietType', e.target.value)}
@@ -273,8 +313,9 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
               </div>
 
               <div className="form-group">
-                <label className="form-label">Food Waste Levels</label>
+                <label htmlFor="input-food-waste" className="form-label">Food Waste Levels</label>
                 <select
+                  id="input-food-waste"
                   className="form-select"
                   value={data.diet.foodWaste}
                   onChange={(e) => updateDiet('foodWaste', e.target.value)}
@@ -288,7 +329,7 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
 
             <div>
               <div className="form-group glass-panel" style={{ padding: '1.25rem' }}>
-                <label className="form-label" style={{ color: 'var(--primary)' }}>
+                <label htmlFor="input-local-food" className="form-label" style={{ color: 'var(--primary)' }}>
                   Locally Sourced Food: {data.diet.localFoodShare}%
                 </label>
                 <p style={{ fontSize: '0.8rem', marginBottom: '1rem', color: 'var(--text-secondary)' }}>
@@ -296,6 +337,7 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
                 </p>
                 <div className="premium-slider-container">
                   <input
+                    id="input-local-food"
                     type="range"
                     className="premium-slider"
                     min="0"
@@ -314,13 +356,19 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
           </div>
         )}
 
-        {/* WASTE TAB */}
+        {/* WASTE TAB PANEL */}
         {activeTab === 'waste' && (
-          <div className="animate-fade-in grid-2">
+          <div 
+            id="panel-waste"
+            role="tabpanel"
+            aria-labelledby="tab-btn-waste"
+            className="animate-fade-in grid-2"
+          >
             <div>
               <div className="form-group">
-                <label className="form-label">Household Trash Bags (kg / week)</label>
+                <label htmlFor="input-trash-weight" className="form-label">Household Trash Bags (kg / week)</label>
                 <input
+                  id="input-trash-weight"
                   type="number"
                   className="form-input"
                   value={data.waste.trashWeight || ''}
@@ -333,8 +381,9 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
               </div>
 
               <div className="form-group" style={{ marginTop: '1.5rem' }}>
-                <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+                <label htmlFor="input-composting" className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
                   <input
+                    id="input-composting"
                     type="checkbox"
                     checked={data.waste.composting}
                     onChange={(e) => updateWaste('composting', e.target.checked)}
@@ -352,7 +401,7 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
 
             <div>
               <div className="form-group glass-panel" style={{ padding: '1.25rem' }}>
-                <label className="form-label" style={{ color: 'var(--primary)' }}>
+                <label htmlFor="input-recycle-share" className="form-label" style={{ color: 'var(--primary)' }}>
                   Recycling Rate: {data.waste.recycleShare}%
                 </label>
                 <p style={{ fontSize: '0.8rem', marginBottom: '1rem', color: 'var(--text-secondary)' }}>
@@ -360,6 +409,7 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
                 </p>
                 <div className="premium-slider-container">
                   <input
+                    id="input-recycle-share"
                     type="range"
                     className="premium-slider"
                     min="0"
@@ -381,7 +431,7 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
 
       <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end', borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--primary)', fontWeight: '600' }}>
-          <Check size={18} /> Stats automatically saved to browser storage.
+          <Check size={18} aria-hidden="true" /> Stats automatically saved to browser storage.
         </div>
       </div>
     </div>

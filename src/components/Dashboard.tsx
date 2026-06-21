@@ -98,7 +98,13 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </h3>
           
           <div style={gaugeContainerStyle}>
-            <svg width="200" height="200" style={{ transform: `rotate(${rotationAngle}deg)`, transformOrigin: 'center' }}>
+            <svg 
+              width="200" 
+              height="200" 
+              style={{ transform: `rotate(${rotationAngle}deg)`, transformOrigin: 'center' }}
+              role="img"
+              aria-label={`Carbon Footprint Gauge: ${netEmissions} kilograms of CO2 per month, which is ${progressPercent}% of the Paris Agreement target`}
+            >
               {/* Background circle */}
               <circle
                 cx="100"
@@ -128,7 +134,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 }}
               />
             </svg>
-            <div style={gaugeTextContainerStyle}>
+            <div style={gaugeTextContainerStyle} aria-live="polite" aria-atomic="true">
               <span style={{ fontSize: '2.5rem', fontWeight: '800', fontFamily: 'var(--font-heading)', color: 'white', lineHeight: 1 }}>
                 {netEmissions}
               </span>
@@ -140,7 +146,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
           <div style={{ textAlign: 'center', marginTop: '-1rem' }}>
             <div style={{ fontWeight: '700', color: statusColor, fontSize: '1.05rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem' }}>
-              {netEmissions > targetMonthly && <AlertTriangle size={16} />}
+              {netEmissions > targetMonthly && <AlertTriangle size={16} aria-hidden="true" />}
               {statusText}
             </div>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.4rem' }}>
@@ -153,7 +159,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1.2rem' }}>
           <div>
             <h3 style={{ fontSize: '1.25rem', marginBottom: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Globe size={18} color="var(--info)" /> Environmental Footprint Impact
+              <Globe size={18} color="var(--info)" aria-hidden="true" /> Environmental Footprint Impact
             </h3>
             <p style={{ fontSize: '0.9rem' }}>
               Calculations are based on monthly totals and annualized projection metrics.
@@ -163,7 +169,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           <div style={equivalentGridStyle}>
             <div style={equivalentItemStyle}>
               <div style={equivalentIconStyle('rgba(16, 185, 129, 0.1)', 'var(--primary)')}>
-                <TreePine size={24} />
+                <TreePine size={24} aria-hidden="true" />
               </div>
               <div>
                 <div style={{ fontSize: '1.25rem', fontWeight: '700', color: 'white' }}>{treesNeeded}</div>
@@ -173,7 +179,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
             <div style={equivalentItemStyle}>
               <div style={equivalentIconStyle('rgba(99, 102, 241, 0.1)', 'var(--secondary)')}>
-                <Globe size={24} />
+                <Globe size={24} aria-hidden="true" />
               </div>
               <div>
                 <div style={{ fontSize: '1.25rem', fontWeight: '700', color: 'white' }}>{annualTotalTons} t</div>
@@ -183,7 +189,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
             <div style={equivalentItemStyle}>
               <div style={equivalentIconStyle('rgba(14, 165, 233, 0.1)', 'var(--info)')}>
-                <TrendingDown size={24} />
+                <TrendingDown size={24} aria-hidden="true" />
               </div>
               <div>
                 <div style={{ fontSize: '1.25rem', fontWeight: '700', color: 'white' }}>{offsetAmount} kg</div>
@@ -193,7 +199,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
             <div style={equivalentItemStyle}>
               <div style={equivalentIconStyle('rgba(244, 63, 94, 0.1)', 'var(--accent)')}>
-                <AlertTriangle size={24} />
+                <AlertTriangle size={24} aria-hidden="true" />
               </div>
               <div>
                 <div style={{ fontSize: '1.25rem', fontWeight: '700', color: 'white' }}>{annualNetTons} t</div>
@@ -203,7 +209,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           <div className="glass-panel" style={{ fontSize: '0.85rem', display: 'flex', gap: '0.6rem', alignItems: 'flex-start' }}>
-            <Lightbulb size={18} color="var(--warning)" style={{ flexShrink: 0, marginTop: '0.1rem' }} />
+            <Lightbulb size={18} color="var(--warning)" style={{ flexShrink: 0, marginTop: '0.1rem' }} aria-hidden="true" />
             <div>
               <strong>Quick Tip:</strong> Your household energy accounts for {Math.round((emissions.energy / (emissions.total || 1)) * 100)}% of your carbon footprint. Adjusting heating temperature dials or opting for wind energy offsets will yield major footprint reductions.
             </div>
