@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import type { CarbonData } from '../utils/carbonCalculator';
-import { 
-  Car, 
-  Zap, 
+import {
+  Car,
+  Zap,
   Flame,
-  Utensils, 
-  Trash2, 
-  Check, 
+  Utensils,
+  Trash2,
+  Check,
   Plane,
   TrendingDown
 } from 'lucide-react';
@@ -72,29 +72,29 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
 
       {/* Tabs */}
       <div className="tabs-header">
-        <button 
-          onClick={() => setActiveTab('transport')} 
+        <button
+          onClick={() => setActiveTab('transport')}
           className={`tab-btn ${activeTab === 'transport' ? 'active' : ''}`}
           style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
         >
           <Car size={16} /> Transportation
         </button>
-        <button 
-          onClick={() => setActiveTab('energy')} 
+        <button
+          onClick={() => setActiveTab('energy')}
           className={`tab-btn ${activeTab === 'energy' ? 'active' : ''}`}
           style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
         >
           <Zap size={16} /> Energy & Utilities
         </button>
-        <button 
-          onClick={() => setActiveTab('diet')} 
+        <button
+          onClick={() => setActiveTab('diet')}
           className={`tab-btn ${activeTab === 'diet' ? 'active' : ''}`}
           style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
         >
           <Utensils size={16} /> Diet & Food
         </button>
-        <button 
-          onClick={() => setActiveTab('waste')} 
+        <button
+          onClick={() => setActiveTab('waste')}
           className={`tab-btn ${activeTab === 'waste' ? 'active' : ''}`}
           style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
         >
@@ -110,7 +110,7 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
             <div>
               <div className="form-group">
                 <label className="form-label">Primary Vehicle Type</label>
-                <select 
+                <select
                   className="form-select"
                   value={data.transport.carType}
                   onChange={(e) => updateTransport('carType', e.target.value)}
@@ -126,8 +126,8 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
               {data.transport.carType !== 'none' && (
                 <div className="form-group">
                   <label className="form-label">Car Mileage (km / month)</label>
-                  <input 
-                    type="number" 
+                  <input
+                    type="number"
                     className="form-input"
                     value={data.transport.carDistance || ''}
                     placeholder="e.g. 500"
@@ -141,8 +141,8 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
 
               <div className="form-group">
                 <label className="form-label">Motorbike Mileage (km / month)</label>
-                <input 
-                  type="number" 
+                <input
+                  type="number"
                   className="form-input"
                   value={data.transport.motorbike || ''}
                   placeholder="e.g. 0"
@@ -154,8 +154,8 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
             <div>
               <div className="form-group">
                 <label className="form-label">Public Transit (km / month)</label>
-                <input 
-                  type="number" 
+                <input
+                  type="number"
                   className="form-input"
                   value={data.transport.publicTransit || ''}
                   placeholder="e.g. 200"
@@ -170,8 +170,8 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
                 <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                   <Plane size={14} /> Annual Flight Hours
                 </label>
-                <input 
-                  type="number" 
+                <input
+                  type="number"
                   className="form-input"
                   value={data.transport.flights || ''}
                   placeholder="e.g. 10"
@@ -193,8 +193,8 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
                 <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                   <Zap size={14} color="#f59e0b" /> Electricity Consumption (kWh / month)
                 </label>
-                <input 
-                  type="number" 
+                <input
+                  type="number"
                   className="form-input"
                   value={data.energy.electricity || ''}
                   placeholder="e.g. 250"
@@ -209,8 +209,8 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
                 <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                   <Flame size={14} color="var(--accent)" /> Natural Gas (kWh or equivalent / month)
                 </label>
-                <input 
-                  type="number" 
+                <input
+                  type="number"
                   className="form-input"
                   value={data.energy.gas || ''}
                   placeholder="e.g. 150"
@@ -231,11 +231,11 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
                   Does your home electricity plan use solar/wind certificates or have solar panels installed? Slide to credit clean electricity.
                 </p>
                 <div className="premium-slider-container">
-                  <input 
-                    type="range" 
-                    className="premium-slider" 
-                    min="0" 
-                    max="100" 
+                  <input
+                    type="range"
+                    className="premium-slider"
+                    min="0"
+                    max="100"
                     value={data.energy.cleanEnergyShare}
                     onChange={(e) => updateEnergy('cleanEnergyShare', Number(e.target.value))}
                   />
@@ -256,7 +256,7 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
             <div>
               <div className="form-group">
                 <label className="form-label">Diet Classification</label>
-                <select 
+                <select
                   className="form-select"
                   value={data.diet.dietType}
                   onChange={(e) => updateDiet('dietType', e.target.value)}
@@ -274,7 +274,7 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
 
               <div className="form-group">
                 <label className="form-label">Food Waste Levels</label>
-                <select 
+                <select
                   className="form-select"
                   value={data.diet.foodWaste}
                   onChange={(e) => updateDiet('foodWaste', e.target.value)}
@@ -295,11 +295,11 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
                   Percentage of vegetables, fruits, and dry goods grown within your region (reduced food-miles).
                 </p>
                 <div className="premium-slider-container">
-                  <input 
-                    type="range" 
-                    className="premium-slider" 
-                    min="0" 
-                    max="100" 
+                  <input
+                    type="range"
+                    className="premium-slider"
+                    min="0"
+                    max="100"
                     value={data.diet.localFoodShare}
                     onChange={(e) => updateDiet('localFoodShare', Number(e.target.value))}
                   />
@@ -320,8 +320,8 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
             <div>
               <div className="form-group">
                 <label className="form-label">Household Trash Bags (kg / week)</label>
-                <input 
-                  type="number" 
+                <input
+                  type="number"
                   className="form-input"
                   value={data.waste.trashWeight || ''}
                   placeholder="e.g. 10"
@@ -334,8 +334,8 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
 
               <div className="form-group" style={{ marginTop: '1.5rem' }}>
                 <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
-                  <input 
-                    type="checkbox" 
+                  <input
+                    type="checkbox"
                     checked={data.waste.composting}
                     onChange={(e) => updateWaste('composting', e.target.checked)}
                     style={checkboxStyle}
@@ -359,11 +359,11 @@ export const CarbonCalculator: React.FC<CarbonCalculatorProps> = ({ data, onChan
                   Percentage of glass, plastic, paper, and metal that you successfully segregate and recycle.
                 </p>
                 <div className="premium-slider-container">
-                  <input 
-                    type="range" 
-                    className="premium-slider" 
-                    min="0" 
-                    max="100" 
+                  <input
+                    type="range"
+                    className="premium-slider"
+                    min="0"
+                    max="100"
                     value={data.waste.recycleShare}
                     onChange={(e) => updateWaste('recycleShare', Number(e.target.value))}
                   />

@@ -451,3 +451,14 @@ a:hover {
     -webkit-text-fill-color: initial !important;
   }
 }
+
+/* Keyboard Accessibility Focus States */
+button:focus-visible, 
+a:focus-visible, 
+input:focus-visible, 
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--primary) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.25) !important;
+}
