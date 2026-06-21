@@ -1,5 +1,7 @@
 # 🌲 EcoSphere: Carbon Footprint Tracker & Reduction Advisor
 
+> ### 🌐 [Live Web App on Google Cloud Platform](https://ecosphere-rajukanna.storage.googleapis.com/index.html)
+
 EcoSphere is a premium, high-fidelity single-page web application built with **React, TypeScript, and Vite**. It empowers individuals to calculate, analyze, and offset their personal carbon footprints through actionable insights, gamified challenges, and an interactive travel route planner.
 
 ---
