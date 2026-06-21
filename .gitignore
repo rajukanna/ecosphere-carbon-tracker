@@ -21,4 +21,8 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?
+# Local GCP SDK and temp files
+google-cloud-sdk/
+gcloud-sdk/
+gcloud.zip
+google-cloud-sdk-installer.exe
